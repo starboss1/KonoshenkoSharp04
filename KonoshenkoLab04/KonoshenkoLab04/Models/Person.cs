@@ -148,7 +148,7 @@ namespace KMA.ProgrammingInCSharp2019.KonoshenkoLab04.Models
             "Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"
         };
 
-        public void CopyFrom(Person person)
+        public void CopyPerson(Person person)
         {
             FirstName = person.FirstName;
              LastName = person.LastName;
@@ -194,15 +194,15 @@ namespace KMA.ProgrammingInCSharp2019.KonoshenkoLab04.Models
         {
             await Task.Run(() =>
             {
-                if (!Directory.Exists("/"+DATAFILEPATH))
+                if (!Directory.Exists("/"+_dataFilePath))
                 {
-                    Directory.CreateDirectory("/"+DATAFILEPATH);
+                    Directory.CreateDirectory("/"+_dataFilePath);
                     persons.AddRange(PersonGenerator.GeneratePersons(50));
                     SaveAll(persons);
                 }
                 else
                 {
-                    persons.AddRange(Directory.EnumerateFiles("/"+DATAFILEPATH).Select(LoadFrom));
+                    persons.AddRange(Directory.EnumerateFiles("/"+_dataFilePath).Select(LoadFrom));
                 }
 
                 action();
@@ -214,15 +214,15 @@ namespace KMA.ProgrammingInCSharp2019.KonoshenkoLab04.Models
             var i = 0;
             persons.ForEach(delegate(Person p)
             {
-                p.SaveTo(Path.Combine("/"+DATAFILEPATH, string.Format(TEMPFILES, i++)));
+                p.SaveTo(Path.Combine("/"+_dataFilePath, string.Format(_tempFiles, i++)));
             });
             string extraFile;
-            while(File.Exists(extraFile = Path.Combine("/" + DATAFILEPATH, string.Format(TEMPFILES, i++))))
+            while(File.Exists(extraFile = Path.Combine("/" + _dataFilePath, string.Format(_tempFiles, i++))))
                 File.Delete(extraFile);
         }
 
-        private static readonly string DATAFILEPATH = "database";
-        private static readonly string TEMPFILES = "person{0}.csharp";
+        private static readonly string _dataFilePath = "database";
+        private static readonly string _tempFiles = "person{0}.csharp";
     }
 
 

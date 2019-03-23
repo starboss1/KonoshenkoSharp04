@@ -114,7 +114,7 @@ namespace KMA.ProgrammingInCSharp2019.KonoshenkoLab04.ViewModels
             var personToEdit = _selectedPerson;
             NavigationManager.Instance.Navi(delegate (Person edited)
             {
-                personToEdit.CopyFrom(edited);
+                personToEdit.CopyPerson(edited);
                 UpdateUsersGrid();
             }, _selectedPerson);
 
